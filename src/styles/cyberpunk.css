@@ -1,0 +1,214 @@
+.cyberpunk-grid {
+  background-color: #000913;
+  background-image: 
+    linear-gradient(rgba(18, 16, 16, 0.9) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(18, 16, 16, 0.9) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+.cyber-panel {
+  background: rgba(16, 16, 32, 0.8);
+  border: 1px solid rgba(0, 157, 255, 0.2);
+  border-radius: 8px;
+  padding: 1rem;
+  position: relative;
+  box-shadow: 
+    0 0 10px rgba(0, 243, 255, 0.1),
+    inset 0 0 20px rgba(0, 243, 255, 0.05);
+  overflow: hidden;
+}
+
+.cyber-panel::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    rgba(0, 243, 255, 0.1) 50%,
+    transparent 100%
+  );
+  animation: scanner 4s linear infinite;
+  pointer-events: none;
+}
+
+.cyber-panel-xl {
+  @apply cyber-panel;
+  border-width: 2px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+}
+
+.cyber-button {
+  background: rgba(0, 157, 255, 0.1);
+  border: 1px solid rgba(0, 157, 255, 0.2);
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+}
+
+.cyber-button:hover {
+  background: rgba(0, 157, 255, 0.2);
+  border-color: rgba(0, 157, 255, 0.3);
+  box-shadow: 
+    0 0 20px rgba(0, 243, 255, 0.3),
+    inset 0 0 15px rgba(0, 243, 255, 0.2);
+}
+
+.cyber-button::before {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 300%;
+  height: 300%;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    rgba(0, 243, 255, 0.2) 50%,
+    transparent 100%
+  );
+  transition: transform 0.3s ease;
+  transform: translateX(-100%) translateY(-100%) rotate(45deg);
+}
+
+.cyber-button:hover::before {
+  transform: translateX(0) translateY(0) rotate(45deg);
+}
+
+.cyber-glitch-text {
+  text-shadow: 
+    2px 2px #ff00ff,
+    -2px -2px #00ffff;
+  animation: glitch 1s infinite;
+}
+
+@keyframes glitch {
+  0% { text-shadow: 2px 2px #ff00ff, -2px -2px #00ffff; }
+  25% { text-shadow: -2px 2px #ff00ff, 2px -2px #00ffff; }
+  50% { text-shadow: 2px -2px #ff00ff, -2px 2px #00ffff; }
+  75% { text-shadow: -2px -2px #ff00ff, 2px 2px #00ffff; }
+  100% { text-shadow: 2px 2px #ff00ff, -2px -2px #00ffff; }
+}
+
+.cyber-grid {
+  background: #000913;
+  min-height: 100vh;
+  background-image: 
+    linear-gradient(rgba(0, 243, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 243, 255, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cyber-grid::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, transparent 0%, #000913 70%);
+  pointer-events: none;
+}
+
+.cyber-text {
+  color: #00d9ff;
+  text-shadow: 0 0 5px rgba(0, 217, 255, 0.5);
+}
+
+.matrix-bg {
+  background: linear-gradient(135deg, rgba(16, 16, 32, 0.8), rgba(0, 32, 64, 0.8));
+  animation: matrix 20s linear infinite;
+  background-size: 100% 200%;
+}
+
+.hologram {
+  position: relative;
+}
+
+.hologram::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 243, 255, 0.1) 0px,
+    rgba(0, 243, 255, 0.1) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  animation: scanner 10s linear infinite;
+}
+
+.cyber-gradient {
+  background: linear-gradient(
+    45deg,
+    rgba(0, 243, 255, 0.1),
+    rgba(176, 38, 255, 0.1)
+  );
+}
+
+.neon-border {
+  box-shadow:
+    0 0 5px rgba(0, 243, 255, 0.5),
+    0 0 10px rgba(0, 243, 255, 0.3),
+    inset 0 0 5px rgba(0, 243, 255, 0.2);
+}
+
+.cyber-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.cyber-scroll::-webkit-scrollbar-track {
+  background: rgba(0, 243, 255, 0.1);
+  border-radius: 4px;
+}
+
+.cyber-scroll::-webkit-scrollbar-thumb {
+  background: rgba(0, 243, 255, 0.3);
+  border-radius: 4px;
+}
+
+.cyber-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 243, 255, 0.5);
+}
+
+.glass-panel {
+  background: rgba(0, 157, 255, 0.1);
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.glass-panel:hover {
+  background: rgba(0, 157, 255, 0.15);
+}
+
+.animate-glow {
+  animation: glow 2s infinite;
+}
+
+@keyframes glow {
+  0%, 100% { filter: drop-shadow(0 0 5px rgba(0, 217, 255, 0.5)); }
+  50% { filter: drop-shadow(0 0 15px rgba(0, 217, 255, 0.8)); }
+}
+
+.scanner-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(0, 217, 255, 0.5);
+  animation: scan 2s linear infinite;
+}
+
+@keyframes scan {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(400px); }
+}

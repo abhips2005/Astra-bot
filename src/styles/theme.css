@@ -1,0 +1,78 @@
+.asthra-gradient {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 255, 255, 0.15) 0%,
+    rgba(176, 38, 255, 0.15) 100%
+  );
+}
+
+.asthra-card {
+  backdrop-filter: blur(12px);
+  background: rgba(13, 13, 25, 0.8);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  box-shadow: 
+    0 0 20px rgba(0, 255, 255, 0.1),
+    inset 0 0 20px rgba(0, 255, 255, 0.05);
+}
+
+.asthra-button {
+  background: linear-gradient(
+    45deg,
+    rgba(0, 255, 255, 0.1),
+    rgba(176, 38, 255, 0.1)
+  );
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.asthra-button:hover {
+  background: linear-gradient(
+    45deg,
+    rgba(0, 255, 255, 0.2),
+    rgba(176, 38, 255, 0.2)
+  );
+  border-color: rgba(0, 255, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 255, 255, 0.2);
+}
+
+.hologram-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.hologram-effect::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    rgba(0, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  animation: hologramScan 3s linear infinite;
+}
+
+@keyframes hologramScan {
+  from { transform: rotate(0deg) translateY(-50%); }
+  to { transform: rotate(360deg) translateY(-50%); }
+}
+
+.neon-text {
+  text-shadow: 
+    0 0 5px rgba(0, 255, 255, 0.5),
+    0 0 10px rgba(0, 255, 255, 0.3),
+    0 0 15px rgba(0, 255, 255, 0.1);
+}
+
+.grid-background {
+  background-image: 
+    linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-position: center center;
+}

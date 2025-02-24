@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#050714] text-cyan-50;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-cyan-900/10 rounded;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-cyan-500/20 rounded hover:bg-cyan-500/30;
+  }
+}
+
+@layer components {
+  .cyber-panel {
+    @apply bg-dark-cyber/80 backdrop-blur-md border border-cyber-blue/30 rounded-lg p-4 shadow-lg;
+  }
+
+  .cyber-button {
+    @apply bg-cyber-blue/20 hover:bg-cyber-blue/30 border border-cyber-blue/50 
+           text-cyber-blue rounded px-4 py-2 transition-all duration-300
+           hover:shadow-[0_0_15px_rgba(0,243,255,0.5)] active:scale-95;
+  }
+
+  .glass-panel {
+    @apply bg-glass backdrop-blur-md border border-white/10 rounded-lg;
+  }
+
+  .neon-text {
+    @apply bg-gradient-to-r from-cyber-blue to-neon-pink bg-clip-text text-transparent;
+  }
+
+  .scanner-bar {
+    @apply absolute inset-0 bg-gradient-to-b from-transparent via-cyber-blue/20 to-transparent
+           opacity-50 animate-scanner;
+  }
+
+  .asthra-input {
+    @apply bg-cyan-900/10 border border-cyan-500/20 rounded-lg px-4 py-2
+           focus:outline-none focus:border-cyan-500/40 focus:ring-1 focus:ring-cyan-500/40;
+  }
+
+  .asthra-badge {
+    @apply px-2 py-0.5 rounded-full text-xs
+           bg-cyan-500/10 text-cyan-400 border border-cyan-500/20;
+  }
+}
+
+.hexagon-bg {
+  background-image: linear-gradient(120deg, #00f3ff11 25%, transparent 25%),
+                    linear-gradient(240deg, #00f3ff11 25%, transparent 25%);
+  background-size: 60px 60px;
+  animation: moveHexagons 20s linear infinite;
+}
+
+@keyframes moveHexagons {
+  from { background-position: 0 0; }
+  to { background-position: 60px 60px; }
+}
