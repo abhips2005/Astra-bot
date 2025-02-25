@@ -100,6 +100,22 @@
   }
 }
 
+@media (orientation: landscape) {
+  .asthra-card {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  
+  .hologram-effect {
+    max-height: 80vh;
+  }
+  
+  .grid-background {
+    min-height: 100vh;
+    background-size: 25px 25px;
+  }
+}
+
 /* Media query for ultra-wide screens */
 @media (min-width: 1920px) {
   .grid-background {
