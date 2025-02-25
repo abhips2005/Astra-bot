@@ -6,7 +6,7 @@
   "scope": "./",
   "display": "standalone",
   "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
-  "orientation": "portrait",
+  "orientation": "any",
   "background_color": "#000913",
   "theme_color": "#0891b2",
   "prefer_related_applications": false,
