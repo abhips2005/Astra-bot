@@ -76,3 +76,37 @@
   background-size: 20px 20px;
   background-position: center center;
 }
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .asthra-card {
+    backdrop-filter: blur(8px);
+    padding: 0.75rem;
+  }
+  
+  .asthra-button {
+    padding: 0.5rem;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 600px) {
+  .asthra-card {
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  
+  .hologram-effect {
+    max-height: 70vh;
+  }
+}
+
+/* Media query for ultra-wide screens */
+@media (min-width: 1920px) {
+  .grid-background {
+    background-size: 30px 30px;
+  }
+  
+  .asthra-card {
+    padding: 2rem;
+  }
+}
