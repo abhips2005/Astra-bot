@@ -43,7 +43,7 @@ export default defineConfig({
         background_color: '#050714',
         display: 'standalone',
         display_override: ['window-controls-overlay', 'standalone', 'minimal-ui', 'fullscreen'],
-        orientation: 'portrait',
+        orientation: 'any',
         start_url: '/',
         scope: '/',
         id: '/',
