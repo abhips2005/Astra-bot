@@ -516,10 +516,10 @@ function App() {
   );
 
   return (
-    <div className="min-h-screen grid-background bg-[#050714] text-cyan-50">
+    <div className="min-h-screen grid-background bg-[#050714] text-cyan-50 landscape:h-screen landscape:overflow-y-auto">
       {/* Header */}
       <motion.header 
-        className="asthra-card m-2 md:m-4 p-2 md:p-4 rounded-xl"
+        className="asthra-card m-2 md:m-4 p-2 md:p-4 rounded-xl landscape:m-1 landscape:p-2"
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
       >
@@ -567,10 +567,11 @@ function App() {
       </motion.header>
 
       <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 p-2 md:p-4 
-        landscape:grid-cols-2 landscape:lg:grid-cols-12">
+        landscape:grid-cols-12 landscape:gap-2 landscape:p-1
+        landscape:h-[calc(100vh-4rem)] landscape:overflow-y-auto">
         {/* Left Column - Camera and Controls */}
         <div className="col-span-1 md:col-span-1 lg:col-span-5 space-y-4
-          landscape:col-span-1 landscape:lg:col-span-5">
+          landscape:col-span-4 landscape:space-y-2 landscape:overflow-y-auto">
           <motion.div 
             className="asthra-card rounded-xl p-1 hologram-effect h-[300px] md:h-[400px] 
               landscape:h-[70vh]"
@@ -649,8 +650,8 @@ function App() {
         </div>
 
         {/* Middle Column - Events and Activities */}
-        <div className="col-span-1 md:col-span-1 lg:col-span-4 cyber-panel-xl flex flex-col
-          min-h-[400px] md:min-h-[600px] landscape:min-h-[80vh]">
+        <div className="col-span-1 md:col-span-1 lg:col-span-4 cyber-panel-xl
+          landscape:col-span-5 landscape:overflow-y-auto landscape:max-h-[calc(100vh-5rem)]">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-lg font-bold">Live Events</h2>
             <div className="flex space-x-2">
@@ -701,7 +702,8 @@ function App() {
         </div>
 
         {/* Right Column - Info and Stats */}
-        <div className="col-span-1 md:col-span-2 lg:col-span-3 space-y-4">
+        <div className="col-span-1 md:col-span-2 lg:col-span-3 space-y-4
+          landscape:col-span-3 landscape:space-y-2 landscape:overflow-y-auto">
           {/* Weather and Location */}
           <motion.div 
             className="cyber-panel p-3"
