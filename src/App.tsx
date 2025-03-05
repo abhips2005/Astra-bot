@@ -78,7 +78,7 @@ function App() {
   const recognitionRef = useRef<any>(null);
   const commandRecognitionRef = useRef<any>(null);
   const [isGameModalOpen, setIsGameModalOpen] = useState(false);
-
+  const [weatherApi,setWeatherApi] = useState({temp: 30, condition: 'Sunny'});
   // Background music
   const [play, { stop }] = useSound('/ambient-background.mp3', {
     loop: true,
@@ -138,6 +138,15 @@ function App() {
     }, 15000);
   }, [resetToDefault]);
 
+  useEffect(() => {
+    const fetchWeather = async () => {
+      let results = await fetch('https://api.openweathermap.org/data/2.5/weather?q=pala&appid=b3aab7a5a984c4f37a42c3e936b6fe0f')
+      let data = await results.json();
+      console.log(data)
+      setWeatherApi({temp: data.main.temp, condition: data.weather[0].main})
+    }
+    fetchWeather()
+  },[])
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
@@ -719,10 +728,10 @@ function App() {
           >
             <div className="flex justify-between items-center">
               <div>
-                <div className="text-xl font-bold">{weather.temp}°C</div>
+                <div className="text-xl font-bold">{Math.round(weatherApi.temp-273.15) || 28}°C</div>
                 <div className="text-xs text-cyber-purple">{collegeConfig.location}</div>
               </div>
-              {weather.condition === 'Sunny' ? (
+              {weatherApi.condition === 'Sunny' ? (
                 <Sun className="w-8 h-8 text-cyber-yellow" />
               ) : (
                 <Cloud className="w-8 h-8 text-cyber-blue" />
