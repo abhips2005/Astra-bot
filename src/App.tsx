@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { format } from 'date-fns';
 import Webcam from 'react-webcam';
 import useSound from 'use-sound';
+
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Bot, 
@@ -47,6 +48,7 @@ import { collegeConfig } from './config/college-config';
 import './styles/cyberpunk.css';
 import './styles/theme.css';
 import GameModal from './components/GameModal';
+import FaceTracker from './components/FaceTracker';
 
 function App() {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -584,15 +586,12 @@ function App() {
             animate={{ scale: 1, opacity: 1 }}
           >
             {cameraActive ? (
-              <div className="relative rounded-lg overflow-hidden">
-                <Webcam
-                  ref={webcamRef}
-                  audio={false}
-                  className="w-full h-[400px] object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+              <div className="relative h-full w-full rounded-lg overflow-hidden">
+                {/* FaceTracker will automatically adapt to the size of its parent container */}
+                <FaceTracker  />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
                 <motion.button
-                  className="absolute bottom-4 right-4 asthra-button p-3 rounded-full"
+                  className="absolute bottom-4 right-4 asthra-button p-3 rounded-full z-20"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={captureImage}
