@@ -3,12 +3,10 @@ import { useGameLoop } from "./hooks/useGameLoop";
 import { useGameState } from "./hooks/useGameState";
 
 const CANVAS_WIDTH = 600;
-const CANVAS_HEIGHT = 150;
+const CANVAS_HEIGHT = 400;
 const GROUND_HEIGHT = 20;
 const DINO_WIDTH = 40;
 const DINO_HEIGHT = 40;
-const CACTUS_WIDTH = 20;
-const CACTUS_HEIGHT = 40;
 const JUMP_FORCE = -12;
 const GRAVITY = 0.6;
 
@@ -21,7 +19,7 @@ export function DinoGame() {
   const {
     dinoY,
     dinoVelocity,
-    cacti,
+    obstacles,
     score,
     gameOver,
     jump,
@@ -56,10 +54,10 @@ export function DinoGame() {
     ctx.fillStyle = "#22D3EE"; // Cyan dino
     ctx.fillRect(50, dinoY, DINO_WIDTH, DINO_HEIGHT);
 
-    // Draw cacti
-    ctx.fillStyle = "#0E4455"; // Teal cacti
-    cacti.forEach(cactus => {
-      ctx.fillRect(cactus.x, CANVAS_HEIGHT - GROUND_HEIGHT - CACTUS_HEIGHT, CACTUS_WIDTH, CACTUS_HEIGHT);
+    // Draw obstacles
+    ctx.fillStyle = "#0E4455"; // Teal obstacles
+    obstacles.forEach(obstacle => {
+      ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
     });
 
     // Draw score
