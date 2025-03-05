@@ -46,6 +46,7 @@ import {
 import { collegeConfig } from './config/college-config';
 import './styles/cyberpunk.css';
 import './styles/theme.css';
+import GameModal from './components/GameModal';
 
 function App() {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -76,6 +77,7 @@ function App() {
   const lastInteractionRef = useRef<number>(Date.now());
   const recognitionRef = useRef<any>(null);
   const commandRecognitionRef = useRef<any>(null);
+  const [isGameModalOpen, setIsGameModalOpen] = useState(false);
 
   // Background music
   const [play, { stop }] = useSound('/ambient-background.mp3', {
@@ -98,20 +100,15 @@ function App() {
       action: () => speak("Currently ongoing: Hackathon in Lab 201, Robotics in Ground Floor")
     },
     { 
-      text: "Register Team", 
-      icon: Users,
-      action: () => speak("Opening team registration portal. Maximum team size is 4 members.")
-    },
-    { 
       text: "Tech Showcase", 
       icon: Sparkles,
       action: () => speak("Latest projects: AI Chess Bot, Smart Agriculture Drone, and Autonomous Robot")
     },
-    { 
-      text: "Gaming Arena", 
-      icon: Gamepad,
-      action: () => speak("Gaming arena is open in Lab 302. Tournaments: FIFA, Valorant, CS:GO")
-    }
+    // { 
+    //   text: "Gaming Arena", 
+    //   icon: Gamepad,
+    //   action: () => speak("Gaming arena is open in Lab 302. Tournaments: FIFA, Valorant, CS:GO")
+    // }
   ];
 
   // Reset to default state after inactivity
@@ -573,7 +570,7 @@ function App() {
           landscape:col-span-1 landscape:lg:col-span-5">
           <motion.div 
             className="asthra-card rounded-xl p-1 hologram-effect h-[300px] md:h-[400px] 
-              landscape:h-[70vh]"
+              landscape:h-[70vh] "
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
           >
@@ -595,7 +592,7 @@ function App() {
                 </motion.button>
               </div>
             ) : (
-              <div className="h-full flex items-center justify-center">
+              <div className="h-full flex items-center justify-center ">
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   onClick={() => setCameraActive(true)}
@@ -630,28 +627,13 @@ function App() {
             <div className="absolute inset-0 bg-gradient-to-t from-cyan-500/10 to-purple-500/10"></div>
           </motion.div>
 
-          {/* Quick Actions */}
-          <div className="grid grid-cols-2 gap-3 md:gap-6">
-            {festFeatures.map((feature, index) => (
-              <motion.button
-                key={index}
-                className="asthra-button rounded-xl p-2 md:p-3 flex flex-col items-center justify-center
-                  min-h-[80px] md:min-h-[100px] landscape:min-h-[12vh]"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={feature.action}
-              >
-                <feature.icon className="w-5 h-5 md:w-6 md:h-6 text-cyan-400 mb-2" />
-                <span className="text-xs md:text-sm text-center">{feature.text}</span>
-              </motion.button>
-            ))}
-          </div>
+
         </div>
 
         {/* Middle Column - Events and Activities */}
         <div className="col-span-1 md:col-span-1 lg:col-span-4 cyber-panel-xl flex flex-col
-          min-h-[400px] md:min-h-[600px] landscape:min-h-[80vh]">
-          <div className="flex justify-between items-center mb-4">
+          min-h-[400px] md:min-h-[600px] landscape:min-h-[40vh] ">
+          <div className="flex justify-between items-center mb-4 ">
             <h2 className="text-lg font-bold">Live Events</h2>
             <div className="flex space-x-2">
               {['all', 'workshops', 'events'].map((type) => (
@@ -666,6 +648,7 @@ function App() {
                 </button>
               ))}
             </div>
+            
           </div>
 
           <div className="flex-1 cyber-scroll overflow-y-auto pr-2 space-y-2">
@@ -697,6 +680,32 @@ function App() {
                 </div>
               </motion.div>
             ))}
+          </div>
+                    {/* Quick Actions */}
+                    <div className="grid grid-cols-2 gap-3 md:gap-6 ">
+            {festFeatures.map((feature, index) => (
+              <motion.button
+                key={index}
+                className="asthra-button rounded-xl p-2 md:p-3 flex flex-col items-center justify-center
+                  min-h-[80px] md:min-h-[100px] landscape:min-h-[12vh]"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={feature.action}
+              >
+                <feature.icon className="w-5 h-5 md:w-6 md:h-6 text-cyan-400 mb-2" />
+                <span className="text-xs md:text-sm text-center">{feature.text}</span>
+              </motion.button>
+            ))}
+            <motion.button
+              className="asthra-button rounded-xl p-2 md:p-3 flex flex-col items-center justify-center
+                min-h-[80px] md:min-h-[100px] landscape:min-h-[12vh]"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setIsGameModalOpen(true)}
+            >
+              <Gamepad className="w-5 h-5 md:w-6 md:h-6 text-cyan-400 mb-2" />
+              <span className="text-xs md:text-sm text-center">Games</span>
+            </motion.button>
           </div>
         </div>
 
@@ -779,6 +788,7 @@ function App() {
           )}
         </div>
       </main>
+      <GameModal isOpen={isGameModalOpen} onClose={() => setIsGameModalOpen(false)} />
     </div>
   );
 }
