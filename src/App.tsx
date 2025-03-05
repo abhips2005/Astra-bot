@@ -576,10 +576,10 @@ function App() {
         landscape:grid-cols-2 landscape:lg:grid-cols-12">
         {/* Left Column - Camera and Controls */}
         <div className="col-span-1 md:col-span-1 lg:col-span-5 space-y-4
-          landscape:col-span-1 landscape:lg:col-span-5">
+          landscape:col-span-1 landscape:lg:col-span-5 ">
           <motion.div 
             className="asthra-card rounded-xl p-1 hologram-effect h-[300px] md:h-[400px] 
-              landscape:h-[70vh] "
+              landscape:h-[70vh] overflow-hidden"
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
           >

@@ -6,19 +6,22 @@ interface GameStateProps {
   gravity: number;
 }
 
-interface Cactus {
+interface Obstacle {
   x: number;
+  y: number;
+  width: number;
+  height: number;
   passed: boolean;
 }
 
 export function useGameState({ groundY, jumpForce, gravity }: GameStateProps) {
   const [dinoY, setDinoY] = useState(groundY - 40);
   const [dinoVelocity, setDinoVelocity] = useState(0);
-  const [cacti, setCacti] = useState<Cactus[]>([{ x: 600, passed: false }]);
+  const [obstacles, setObstacles] = useState<Obstacle[]>([{ x: 600, y: groundY - 40, width: 20, height: 40, passed: false }]);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
-  const speedRef = useRef(5);
-  const nextCactusRef = useRef(Math.random() * 50 + 50);
+  const speedRef = useRef(10);
+  const nextObstacleRef = useRef(Math.random() * 50 + 50);
 
   const jump = useCallback(() => {
     if (dinoY === groundY - 40) {
@@ -29,11 +32,11 @@ export function useGameState({ groundY, jumpForce, gravity }: GameStateProps) {
   const reset = useCallback(() => {
     setDinoY(groundY - 40);
     setDinoVelocity(0);
-    setCacti([{ x: 600, passed: false }]);
+    setObstacles([{ x: 600, y: groundY - 40, width: 20, height: 40, passed: false }]);
     setScore(0);
     setGameOver(false);
-    speedRef.current = 5;
-    nextCactusRef.current = Math.random() * 50 + 50;
+    speedRef.current = 10;
+    nextObstacleRef.current = Math.random() * 50 + 50;
   }, [groundY]);
 
   const updateGameState = useCallback((deltaTime: number) => {
@@ -45,49 +48,53 @@ export function useGameState({ groundY, jumpForce, gravity }: GameStateProps) {
       setDinoVelocity(v => v + gravity * deltaTime);
     }
 
-    // Update cacti
-    setCacti(currentCacti => {
-      const newCacti = currentCacti
-        .map(cactus => ({
-          ...cactus,
-          x: cactus.x - speedRef.current * deltaTime
+    // Update obstacles
+    setObstacles(currentObstacles => {
+      const newObstacles = currentObstacles
+        .map(obstacle => ({
+          ...obstacle,
+          x: obstacle.x - speedRef.current * deltaTime
         }))
-        .filter(cactus => cactus.x > -20);
+        .filter(obstacle => obstacle.x > -obstacle.width);
 
-      // Add score for passed cacti
-      currentCacti.forEach(cactus => {
-        if (!cactus.passed && cactus.x < 40) {
+      // Add score for passed obstacles
+      currentObstacles.forEach(obstacle => {
+        if (!obstacle.passed && obstacle.x < 40) {
           setScore(s => s + 1);
-          cactus.passed = true;
-          speedRef.current += 0.1;
+          obstacle.passed = true;
+          speedRef.current += 0.5;
         }
       });
 
-      // Add new cactus
-      if (currentCacti[currentCacti.length - 1].x < nextCactusRef.current) {
-        newCacti.push({ x: 600, passed: false });
-        nextCactusRef.current = Math.random() * 100 + 100;
+      // Add new obstacle
+      if (currentObstacles[currentObstacles.length - 1].x < nextObstacleRef.current) {
+        const width = Math.random() * 20 + 20; // Random width between 20 and 40
+        const height = Math.random() * 20 + 40; // Random height between 40 and 60
+        const y = Math.random() > 0.5 ? groundY - height : groundY - height - 60; // Randomly place obstacle on ground or flying
+        newObstacles.push({ x: 600, y, width, height, passed: false });
+        nextObstacleRef.current = Math.random() * 100 + 100;
       }
 
-      return newCacti;
+      return newObstacles;
     });
 
     // Check collisions
-    cacti.forEach(cactus => {
+    obstacles.forEach(obstacle => {
       if (
-        cactus.x < 90 &&
-        cactus.x + 20 > 50 &&
-        dinoY + 40 > groundY - 40
+        obstacle.x < 90 &&
+        obstacle.x + obstacle.width > 50 &&
+        dinoY + 40 > obstacle.y &&
+        dinoY < obstacle.y + obstacle.height
       ) {
         setGameOver(true);
       }
     });
-  }, [gameOver, dinoY, dinoVelocity, cacti, gravity, groundY]);
+  }, [gameOver, dinoY, dinoVelocity, obstacles, gravity, groundY]);
 
   return {
     dinoY,
     dinoVelocity,
-    cacti,
+    obstacles,
     score,
     gameOver,
     jump,
