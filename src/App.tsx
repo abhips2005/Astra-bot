@@ -101,8 +101,8 @@ function App() {
     { name: 'Neon Football', venue:'seminar hall, newton block',time:'9:01 AM'},
     {name:'County Cricket', venue:'SJET ground',time:'9:00 AM'},
     {name:'Mini Theatre', venue:'106 MTB', time:'10:00 AM'},
-    {name: 'Technova',venue:'102 SFB',time:'10:00 AM'},
-    {name: 'Artifex',venue:'302 SPB',time:'10:00 AM'},
+    { name: 'Technova',venue:'102 SFB',time:'10:00 AM'},
+    { name: 'Artifex',venue:'302 SPB',time:'10:00 AM'},
     { name:'Artifact fin literacy',venue:'electronics lab',time:'10:00 AM'},
     { name:'Citadel',venue:'106 SPB',time:'10:00 AM'},
     { name: 'Loot up',venue:'ML & DL lab', time:'10:00 AM'}
@@ -594,7 +594,7 @@ function App() {
       </motion.header>
 
       <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 p-2 md:p-4 
-        landscape:grid-cols-2 landscape:lg:grid-cols-12">
+        landscape:grid-cols-2 landscape:lg:grid-cols-12 ">
         {/* Left Column - Camera and Controls */}
         <div className="col-span-1 md:col-span-1 lg:col-span-5 space-y-4
           landscape:col-span-1 landscape:lg:col-span-5 ">
@@ -609,15 +609,15 @@ function App() {
 
           {/* Voice Controls */}
           <motion.div 
-            className="asthra-card rounded-xl p-4 md:p-6 relative overflow-hidden cursor-pointer
-              h-[100px] md:h-[120px] landscape:h-[15vh]"
+            className="  rounded-xl p-4 md:p-6 fixed z-10 overflow-hidden cursor-pointer
+              h-[100px] md:h-[120px] landscape:h-[15vh] bottom-4 left-[50%] transform -translate-x-1/2"
             whileHover={{ scale: 1.02 }}
             onClick={handleVoiceButtonClick}
           >
-            <div className={`w-full h-full flex flex-col items-center justify-center space-y-3
+            <div className={`w-full h-full flex flex-col items-center justify-center space-y-3 
               ${isListening ? 'animate-pulse' : ''}`}
             >
-              <div className={`p-4 rounded-full ${
+              <div className={`p-4 rounded-full  ${
                 isListening ? 'bg-red-500/20' : 'asthra-button'
               }`}>
                 <Mic className="w-8 h-8 text-cyan-400" />
