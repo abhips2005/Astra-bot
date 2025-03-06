@@ -49,6 +49,7 @@ import './styles/cyberpunk.css';
 import './styles/theme.css';
 import GameModal from './components/GameModal';
 import FaceTracker from './components/FaceTracker';
+import ImageDeck from './components/ImageDeck';
 
 function App() {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -106,6 +107,8 @@ function App() {
     { name:'Citadel',venue:'106 SPB',time:'10:00 AM'},
     { name: 'Loot up',venue:'ML & DL lab', time:'10:00 AM'}
   ];
+
+  const images =['/eventimages/1.jpg','/eventimages/2.jpg','/eventimages/3.jpg','/eventimages/4.jpg','/eventimages/5.jpg']
 
   // Quick commands for common interactions
   const festFeatures = [
@@ -230,7 +233,10 @@ function App() {
                        4. Use a warm, engaging tone
                        5. For event queries, always mention: name, venue, time, and one key highlight
                        6. If unsure, ask for clarification
-                       College Details: ${JSON.stringify(collegeConfig)}`
+                       College Details: ${JSON.stringify(collegeConfig)}
+                       7. Answer general questions not just questions related to the fest
+                       8. Answer coding questions, tech queries, and general knowledge questions`
+                       
             },
             {
               role: 'user',
@@ -542,6 +548,23 @@ function App() {
               </h1>
               <p className="text-sm text-cyan-300/70">{collegeConfig.festDetails.theme}</p>
             </div>
+            <motion.div 
+            className="cyber-panel p-3 "
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+          > 
+            <div className="flex justify-between items-center">
+              <div>
+                <div className="text-xl font-bold">{Math.round(weatherApi.temp-273.15) || 28}°C</div>
+                <div className="text-xs text-cyber-purple">{collegeConfig.location}</div>
+              </div>
+              {weatherApi.condition === 'Sunny' ? (
+                <Sun className="w-8 h-8 text-cyber-yellow" />
+              ) : (
+                <Cloud className="w-8 h-8 text-cyber-blue" />
+              )}
+            </div>
+          </motion.div>
           </motion.div>
           
           <div className="flex items-center space-x-6">
@@ -581,32 +604,7 @@ function App() {
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
           >
-            {cameraActive ? (
-              <div className="relative h-full w-full rounded-lg overflow-hidden">
-               
-                <FaceTracker  />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
-                <motion.button
-                  className="absolute bottom-4 right-4 asthra-button p-3 rounded-full z-20"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  onClick={captureImage}
-                >
-                  <CameraIcon className="w-6 h-6 text-cyan-400" />
-                </motion.button>
-              </div>
-            ) : (
-              <div className="h-full flex items-center justify-center ">
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  onClick={() => setCameraActive(true)}
-                  className="cyber-button flex items-center space-x-2"
-                >
-                  <Camera className="w-5 h-5" />
-                  <span>Activate Camera</span>
-                </motion.button>
-              </div>
-            )}
+            <ImageDeck images={images} autoScrollInterval={4000} />
           </motion.div>
 
           {/* Voice Controls */}
@@ -681,23 +679,7 @@ function App() {
             </div>
             
           </div>
-          <motion.div 
-            className="cyber-panel p-3 "
-            initial={{ y: -20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-          >
-            <div className="flex justify-between items-center">
-              <div>
-                <div className="text-xl font-bold">{Math.round(weatherApi.temp-273.15) || 28}°C</div>
-                <div className="text-xs text-cyber-purple">{collegeConfig.location}</div>
-              </div>
-              {weatherApi.condition === 'Sunny' ? (
-                <Sun className="w-8 h-8 text-cyber-yellow" />
-              ) : (
-                <Cloud className="w-8 h-8 text-cyber-blue" />
-              )}
-            </div>
-          </motion.div>
+     
           {lastMessage && (
               <motion.div
               className="cyber-panel p3"
