@@ -664,7 +664,7 @@ function App() {
               <span className="text-xs md:text-sm text-center">Games</span>
             </motion.button>
           </div>
-          <div className="flex justify-between items-center mb-4 mt-5 ">
+          <div className="flex justify-between items-center mb-4 mt-5  ">
             <h2 className="text-lg font-bold">Live Events</h2>
             <div className="flex space-x-2">
               {['all', 'workshops', 'events'].map((type) => (
@@ -681,44 +681,8 @@ function App() {
             </div>
             
           </div>
-
-          <div className="flex-1 cyber-scroll overflow-y-auto pr-2 space-y-2 ">
-            {collegeConfig.departments.map((dept, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ x: -20, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: idx * 0.1 }}
-                className="glass-panel p-3"
-              >
-                <h3 className="text-sm font-bold mb-2">{dept.name}</h3>
-                <div className="space-y-1">
-                  {dept.events.map((event, eventIdx) => (
-                    <motion.div
-                      key={eventIdx}
-                      whileHover={{ x: 5 }}
-                      className="text-xs bg-black/20 p-2 rounded"
-                    >
-                      <div className="flex justify-between">
-                        <span>{event.name}</span>
-                        <span className="text-cyber-purple">{event.time}</span>
-                      </div>
-                      <div className="text-cyber-blue/70 mt-1">
-                        {event.venue}
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        {/* Right Column - Info and Stats */}
-        <div className="col-span-1 md:col-span-2 lg:col-span-3 space-y-4">
-          {/* Weather and Location */}
           <motion.div 
-            className="cyber-panel p-3"
+            className="cyber-panel p-3 "
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
           >
@@ -734,6 +698,48 @@ function App() {
               )}
             </div>
           </motion.div>
+          {lastMessage && (
+              <motion.div
+              className="cyber-panel p3"
+              initial={{scale:0.95,opacity:0}}
+              animate = {{scale:1,opacity:1}}
+              >
+                {lastMessage}    </motion.div>)}
+          {isEvents && (
+            <>
+              <div className="flex items-center space-x-2 mb-1">
+              <MessageSquare className="w-4 h-4" />
+              <h3 className="text-sm font-bold">Events</h3>
+              </div>
+              <div className="space-y-2"></div>
+              <div className="cyber-scroll overflow-y-auto max-h-[400px] pr-2">
+              {events.map((event, idx) => (
+                <motion.div 
+                key={idx}
+                className="cyber-panel p-3"
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                >
+                <div className="text-xs text-cyber-blue/80">
+                  <p><strong>{event.name}</strong></p>
+                  <p>Venue: {event.venue}</p>
+                  <p>Time: {event.time}</p>
+                </div>
+                </motion.div>
+              ))}
+              </div>
+            </>
+            )}
+
+          <div className="flex-1 cyber-scroll overflow-y-auto pr-2 space-y-2 ">
+            
+          </div>
+        </div>
+
+        {/* Right Column - Info and Stats */}
+        <div className="col-span-1 md:col-span-2 lg:col-span-3 space-y-4">
+          {/* Weather and Location */}
+          
 
           {/* Live Stats */}
           <motion.div 
@@ -761,39 +767,9 @@ function App() {
 
 
           {/* Last Message */}
-            {lastMessage && (
-              <motion.div
-              className="cyber-panel p3"
-              initial={{scale:0.95,opacity:0}}
-              animate = {{scale:1,opacity:1}}
-              >
-                {lastMessage}    </motion.div>)}
 
-            {isEvents && (
-            <>
-              <div className="flex items-center space-x-2 mb-1">
-              <MessageSquare className="w-4 h-4" />
-              <h3 className="text-sm font-bold">Events</h3>
-              </div>
-              <div className="space-y-2"></div>
-              <div className="cyber-scroll overflow-y-auto max-h-[400px] pr-2">
-              {events.map((event, idx) => (
-                <motion.div 
-                key={idx}
-                className="cyber-panel p-3"
-                initial={{ scale: 0.95, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                >
-                <div className="text-xs text-cyber-blue/80">
-                  <p><strong>{event.name}</strong></p>
-                  <p>Venue: {event.venue}</p>
-                  <p>Time: {event.time}</p>
-                </div>
-                </motion.div>
-              ))}
-              </div>
-            </>
-            )}
+
+           
         </div>
       </main>
       <GameModal isOpen={isGameModalOpen} onClose={() => setIsGameModalOpen(false)} />
