@@ -4,8 +4,8 @@ export const collegeConfig = {
   description: "St. Joseph's College of Engineering and Technology",
   
   festDetails: {
-    name: "ASTHRA 2024",
-    dates: "March 15-17, 2024",
+    name: "ASTHRA 2025",
+    dates: "March 6-7, 2025",
     theme: "Future of Technology",
     description: "Annual National Level Technical Fest"
   },
