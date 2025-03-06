@@ -53,7 +53,6 @@ import FaceTracker from './components/FaceTracker';
 function App() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [isListening, setIsListening] = useState(false);
-  const [weather] = useState({ temp: 28, condition: 'Sunny' });
   const [cameraActive, setCameraActive] = useState(false);
   const [lastMessage, setLastMessage] = useState('');
   const [interactionCount, setInteractionCount] = useState(0);
@@ -64,6 +63,7 @@ function App() {
   const [gesturesEnabled, setGesturesEnabled] = useState(false);
   const [sentiment, setSentiment] = useState<'positive' | 'negative' | null>(null);
   const [isTyping, setIsTyping] = useState(false);
+  const [isEvents, setIsEvents] = useState(false);
   const [voiceSettings, setVoiceSettings] = useState({
     rate: 1,
     pitch: 1,
@@ -80,7 +80,7 @@ function App() {
   const recognitionRef = useRef<any>(null);
   const commandRecognitionRef = useRef<any>(null);
   const [isGameModalOpen, setIsGameModalOpen] = useState(false);
-  const [weatherApi,setWeatherApi] = useState({temp: 30, condition: 'Sunny'});
+  const [weatherApi,setWeatherApi] = useState({temp: 303, condition: 'Sunny'});
   // Background music
   const [play, { stop }] = useSound('/ambient-background.mp3', {
     loop: true,
@@ -91,26 +91,32 @@ function App() {
     { name: 'Robotics Workshop', venue: 'Lab 201', time: '10:00 AM' },
     { name: 'AI Symposium', venue: 'Auditorium', time: '2:00 PM' },
     { name: 'Drone Racing', venue: 'College Ground', time: '4:00 PM' },
-    { name: 'Tech Quiz', venue: 'Seminar Hall', time: '11:30 AM' }
+    { name: 'Tech Quiz', venue: 'Seminar Hall', time: '11:30 AM' },
+    { name: 'Web Development', venue: 'Lab 301', time: '3:30 PM' },
+    { name: 'Console Clash', venue: 'MTB 304', time: '9:10 AM' },
+    { name: 'Radio Workshop', venue: '101 SPB', time: '9:00 AM' },
+    { name: 'SDR', venue:'EDA lab', time:'2:00 PM'},
+    { name: 'Tech Astra 9.0',venue:'MTB seminar hall',time:'10:00 AM'},
+    { name: 'Neon Football', venue:'seminar hall, newton block',time:'9:01 AM'},
+    {name:'County Cricket', venue:'SJET ground',time:'9:00 AM'},
+    {name:'Mini Theatre', venue:'106 MTB', time:'10:00 AM'},
+    {name: 'Technova',venue:'102 SFB',time:'10:00 AM'},
+    {name: 'Artifex',venue:'302 SPB',time:'10:00 AM'},
+    { name:'Artifact fin literacy',venue:'electronics lab',time:'10:00 AM'},
+    { name:'Citadel',venue:'106 SPB',time:'10:00 AM'},
+    { name: 'Loot up',venue:'ML & DL lab', time:'10:00 AM'}
   ];
 
   // Quick commands for common interactions
   const festFeatures = [
     { 
-      text: "Live Competitions", 
+      text: "Today's Events", 
       icon: Trophy,
-      action: () => speak("Currently ongoing: Hackathon in Lab 201, Robotics in Ground Floor")
+      
+      action: () => { 
+        setIsEvents(true)
+      }
     },
-    { 
-      text: "Tech Showcase", 
-      icon: Sparkles,
-      action: () => speak("Latest projects: AI Chess Bot, Smart Agriculture Drone, and Autonomous Robot")
-    },
-    // { 
-    //   text: "Gaming Arena", 
-    //   icon: Gamepad,
-    //   action: () => speak("Gaming arena is open in Lab 302. Tournaments: FIFA, Valorant, CS:GO")
-    // }
   ];
 
   // Reset to default state after inactivity
@@ -166,17 +172,7 @@ function App() {
     };
   }, [isMuted, play, stop]);
 
-  // Add webcam config
-  const webcamConfig = {
-    width: 720,
-    height: 480,
-    facingMode: { exact: "environment" }, // Use back camera
-    screenshotFormat: "image/jpeg",
-    videoConstraints: {
-      facingMode: { exact: "environment" },
-      aspectRatio: 0.75
-    }
-  };
+
 
   // Modified capture image function
   const captureImage = useCallback(() => {
@@ -587,7 +583,7 @@ function App() {
           >
             {cameraActive ? (
               <div className="relative h-full w-full rounded-lg overflow-hidden">
-                {/* FaceTracker will automatically adapt to the size of its parent container */}
+               
                 <FaceTracker  />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
                 <motion.button
@@ -640,8 +636,35 @@ function App() {
 
         {/* Middle Column - Events and Activities */}
         <div className="col-span-1 md:col-span-1 lg:col-span-4 cyber-panel-xl flex flex-col
-          min-h-[400px] md:min-h-[600px] landscape:min-h-[40vh] ">
-          <div className="flex justify-between items-center mb-4 ">
+          min-h-[400px] md:min-h-[600px] landscape:min-h-[40vh]  ">
+          
+                    {/* Quick Actions */}
+            <div className="grid grid-cols-2 gap-3 md:gap-6 ">
+            {festFeatures.map((feature, index) => (
+              <motion.button
+                key={index}
+                className="asthra-button rounded-xl p-2 md:p-3 flex flex-col items-center justify-center
+                  min-h-[80px] md:min-h-[100px] landscape:min-h-[12vh]"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={feature.action}
+              >
+                <feature.icon className="w-5 h-5 md:w-6 md:h-6 text-cyan-400 mb-2" />
+                <span className="text-xs md:text-sm text-center">{feature.text}</span>
+              </motion.button>
+            ))}
+            <motion.button
+              className="asthra-button rounded-xl p-2 md:p-3 flex flex-col items-center justify-center
+                min-h-[80px] md:min-h-[100px] landscape:min-h-[12vh]"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setIsGameModalOpen(true)}
+            >
+              <Gamepad className="w-5 h-5 md:w-6 md:h-6 text-cyan-400 mb-2" />
+              <span className="text-xs md:text-sm text-center">Games</span>
+            </motion.button>
+          </div>
+          <div className="flex justify-between items-center mb-4 mt-5 ">
             <h2 className="text-lg font-bold">Live Events</h2>
             <div className="flex space-x-2">
               {['all', 'workshops', 'events'].map((type) => (
@@ -659,7 +682,7 @@ function App() {
             
           </div>
 
-          <div className="flex-1 cyber-scroll overflow-y-auto pr-2 space-y-2">
+          <div className="flex-1 cyber-scroll overflow-y-auto pr-2 space-y-2 ">
             {collegeConfig.departments.map((dept, idx) => (
               <motion.div
                 key={idx}
@@ -688,32 +711,6 @@ function App() {
                 </div>
               </motion.div>
             ))}
-          </div>
-                    {/* Quick Actions */}
-                    <div className="grid grid-cols-2 gap-3 md:gap-6 ">
-            {festFeatures.map((feature, index) => (
-              <motion.button
-                key={index}
-                className="asthra-button rounded-xl p-2 md:p-3 flex flex-col items-center justify-center
-                  min-h-[80px] md:min-h-[100px] landscape:min-h-[12vh]"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={feature.action}
-              >
-                <feature.icon className="w-5 h-5 md:w-6 md:h-6 text-cyan-400 mb-2" />
-                <span className="text-xs md:text-sm text-center">{feature.text}</span>
-              </motion.button>
-            ))}
-            <motion.button
-              className="asthra-button rounded-xl p-2 md:p-3 flex flex-col items-center justify-center
-                min-h-[80px] md:min-h-[100px] landscape:min-h-[12vh]"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setIsGameModalOpen(true)}
-            >
-              <Gamepad className="w-5 h-5 md:w-6 md:h-6 text-cyan-400 mb-2" />
-              <span className="text-xs md:text-sm text-center">Games</span>
-            </motion.button>
           </div>
         </div>
 
@@ -761,39 +758,42 @@ function App() {
             </div>
           </motion.div>
 
-          {/* Contacts */}
-          <motion.div 
-            className="cyber-panel p-3"
-            initial={{ y: -10, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2 }}
-          >
-            <h3 className="text-sm font-bold mb-2">Quick Contacts</h3>
-            <div className="space-y-2">
-              {collegeConfig.contacts.slice(0, 3).map((contact, idx) => (
-                <div key={idx} className="text-xs glass-panel p-2">
-                  <div className="font-bold">{contact.name}</div>
-                  <div className="text-cyber-purple">{contact.role}</div>
-                  <div className="text-cyber-blue/70">{contact.phone}</div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
+
 
           {/* Last Message */}
-          {lastMessage && (
-            <motion.div 
-              className="cyber-panel p-3"
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-            >
+            {lastMessage && (
+              <motion.div
+              className="cyber-panel p3"
+              initial={{scale:0.95,opacity:0}}
+              animate = {{scale:1,opacity:1}}
+              >
+                {lastMessage}    </motion.div>)}
+
+            {isEvents && (
+            <>
               <div className="flex items-center space-x-2 mb-1">
-                <MessageSquare className="w-4 h-4" />
-                <h3 className="text-sm font-bold">Last Response</h3>
+              <MessageSquare className="w-4 h-4" />
+              <h3 className="text-sm font-bold">Events</h3>
               </div>
-              <p className="text-xs text-cyber-blue/80">{lastMessage}</p>
-            </motion.div>
-          )}
+              <div className="space-y-2"></div>
+              <div className="cyber-scroll overflow-y-auto max-h-[400px] pr-2">
+              {events.map((event, idx) => (
+                <motion.div 
+                key={idx}
+                className="cyber-panel p-3"
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                >
+                <div className="text-xs text-cyber-blue/80">
+                  <p><strong>{event.name}</strong></p>
+                  <p>Venue: {event.venue}</p>
+                  <p>Time: {event.time}</p>
+                </div>
+                </motion.div>
+              ))}
+              </div>
+            </>
+            )}
         </div>
       </main>
       <GameModal isOpen={isGameModalOpen} onClose={() => setIsGameModalOpen(false)} />
