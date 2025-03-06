@@ -233,7 +233,10 @@ function App() {
                        4. Use a warm, engaging tone
                        5. For event queries, always mention: name, venue, time, and one key highlight
                        6. If unsure, ask for clarification
-                       College Details: ${JSON.stringify(collegeConfig)}`
+                       College Details: ${JSON.stringify(collegeConfig)}
+                       7. Answer general questions not just questions related to the fest
+                       8. Answer coding questions, tech queries, and general knowledge questions`
+                       
             },
             {
               role: 'user',
