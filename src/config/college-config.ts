@@ -18,7 +18,7 @@ export const collegeConfig = {
           name: "CodeWars",
           venue: "CS Lab 201",
           time: "10:00 AM",
-          date: "2024-03-15",
+          date: "2025-03-7",
           description: "Competitive programming contest",
           prize: "₹10,000"
         }
