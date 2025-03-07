@@ -108,7 +108,7 @@ function App() {
     { name: 'Loot up',venue:'ML & DL lab', time:'10:00 AM'}
   ];
 
-  const images =['/eventimages/1.jpg','/eventimages/2.jpg','/eventimages/3.jpg','/eventimages/4.jpg','/eventimages/5.jpg']
+  const images =['/eventimages/1.jpg','/eventimages/2.jpg','/eventimages/3.jpg','/eventimages/4.jpg','/eventimages/5.jpg','eventimages/6.jpg','eventimages/7.jpg','eventimages/8.jpg','eventimages/9.jpg','eventimages/10.jpg','eventimages/11.jpg','eventimages/12.jpg','eventimages/13.jpg','eventimages/14.jpg','eventimages/15.jpg','eventimages/16.jpg','eventimages/17.jpg','eventimages/18.jpg','eventimages/19.jpg','eventimages/20.jpg']
 
   // Quick commands for common interactions
   const festFeatures = [
@@ -604,7 +604,7 @@ function App() {
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
           >
-            <ImageDeck images={images} autoScrollInterval={4000} />
+            <ImageDeck images={images} autoScrollInterval={10000} />
           </motion.div>
 
           {/* Voice Controls */}

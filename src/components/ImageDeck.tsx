@@ -5,7 +5,7 @@ interface ImageDeckProps {
   autoScrollInterval?: number; // Interval in milliseconds for auto-scrolling
 }
 
-const ImageDeck: React.FC<ImageDeckProps> = ({ images, autoScrollInterval = 3000 }) => {
+const ImageDeck: React.FC<ImageDeckProps> = ({ images, autoScrollInterval = 8000 }) => {
   const deckRef = useRef<HTMLDivElement>(null);
   const scrollIntervalRef = useRef<number | null>(null);
 
